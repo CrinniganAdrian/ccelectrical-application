@@ -1,0 +1,397 @@
+/*
+
+    -   For the Services, Projects, and Items pages.
+    -   Includes the cards for backend data
+    -   Includes any other css for each of these pages
+    -
+
+*/
+
+/*
+#data { 
+  list-style: none; 
+  float: left;
+  background-color: aqua;
+ }
+
+#data:nth-child(4) { clear: left;}
+
+#datadiv{
+  background-color: rgb(240, 240, 240);
+}
+
+*/
+
+.profile__content{
+  position: relative;
+  background-color:#FFFEF1;
+  border-radius: 0px 0px 0px 0px;
+}
+
+#profile__favourite__item__icon{
+  position: absolute;
+  left: 400px;
+  top: 0px;
+  background-color: #df7b01;
+  padding: 5px;
+}
+
+#profile__favourite__service__icon{
+  position: absolute;
+  left: 400px;
+  top: 10px;
+  background-color: #df7b01;
+  padding: 5px;
+}
+
+.profile__table__details{
+  width:96%;
+  margin: 20px;
+}
+
+
+#profile__favourite__project__icon{
+  position: absolute;
+  left: 400px;
+  top: 50px;
+  background-color: #df7b01;
+  padding: 5px;
+}
+
+.profile__h3{
+  color: #161F28;
+  text-decoration: underline;
+  margin: 20px;
+}
+
+
+.delete {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.delete:hover {
+  background-color: RoyalBlue;
+}
+
+
+.row{
+  padding: 60px;
+  margin-top: 10px;
+  background-color: #FFFEF1;
+}
+
+td.data__item__description{
+  font-family:'Times New Roman', Times, serif;
+  font-size: 25px;
+  background-color:#FFFEF1;
+  margin-left: 20px;
+  opacity: 0.7;
+  padding:50px;
+  color: #161F28;
+  width:35%;
+}
+
+
+.crud__action__buttons{
+  position: relative;
+  padding-left: 20px;
+  width:100px;
+  background-color:#FFFEF1;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.data{
+  display: inline-block;
+  flex-wrap: wrap;
+  margin-bottom: 70px;
+}
+
+#data__header__div{
+  background-color:#df7b01;
+  width: 100%;
+  text-align: center;
+}
+
+.data__header__div{
+  background-color:#FF9C51;
+  width: 100%;
+  text-align: center;
+}
+
+.data__header{
+  width:100%;
+  margin-top: 10px;
+  padding:20px;
+  color:#252e48;
+}
+
+
+
+#delete{
+  position:absolute;
+  right: 10px;
+  top:50px;
+}
+
+#edit{
+  position:absolute;
+  right:10px;
+  top:100px;
+}
+
+#view{
+  position:absolute;
+  left:0px;
+  top:90px;
+}
+
+#favouriteOn{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  padding:5px;
+  top:80px;
+  left:10px;
+  background-color: #FF9C51;
+}
+
+.toggle--button{
+  height: 100px;
+  width: 400px;
+  margin-top: 15%;
+  border: none;
+  font-size: 25px;
+  background-color: purple;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}
+
+.toggle--close{
+  background-color: red;
+}
+
+#favouriteOff{
+  position: absolute;
+  padding:5px;
+  top:80px;
+  left:60px;
+  background-color: #df7b01;
+}
+
+
+/*
+img.cards__item__img{
+  width: 100px;
+  height: 50px;
+}
+*/
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .data__cards__container {
+    display: flex;
+    /*flex-wrap: wrap;*/
+    flex-flow: column;
+    align-items: center;
+    max-width: 1120px;
+    width: 100%;
+    margin: 0 auto;
+    background-color:lightgray;
+  }
+
+
+  .sample__data__cards__container {
+    background-color:#FFEFDA;
+    padding-bottom: 50px;
+    margin-bottom: 550px;
+  }
+  
+  .data__cards__wrapper {
+    position: relative;
+    margin: 50px 0 45px;
+    margin-top:20px;
+  }
+  
+  .data__cards__items {
+    margin-bottom: 24px;
+    max-width: fit-content;
+  }
+  
+  #data__cards__item {
+    display: flex;
+    flex: 1;
+    margin: 0 1rem;
+    border-radius: 10px;
+    width:50%;
+  }
+  
+  
+  .data__cards__item__link {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
+    -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+    filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+    border-radius: 0px 0px 0px 0px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  
+  .data__cards__item__pic-wrap {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    height:100%;
+  }
+  
+  .fade-img {
+    animation-name: fade-img;
+    animation-duration: 2s;
+  }
+  
+  .data__cards__item__pic-wrap::after {
+    content: attr(data-category);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 1px 50px 0px 10px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 700;
+    color: #161F28;
+    background-color: #FEE3BD;
+    box-sizing: border-box;
+  }
+  
+  .data__cards__item__img {
+    position: relative;
+    width:150px;
+    height:150px;
+    top:22px;
+    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-left: 50px;
+    left:45px;
+  }
+
+  .data__cards__item__services__img {
+    position: relative;
+    width:400px;
+    height:200px;
+    top:22px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-left: 50px;
+    left:30px;
+  }
+  
+  .data__cards__item__img:hover {
+    transform: scale(1.1);
+  }
+  
+  .data__cards__item__info {
+    /*padding: 20px 30px 30px;*/
+  }
+  
+  .data__cards__item__text {
+    color: #252e48;
+    font-size: 18px;
+    line-height: 24px;
+    max-width:100%;
+  }
+  
+  @media only screen and (min-width: 1200px) {
+    .content__blog__container {
+      width: 84%;
+    }
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    .data__cards__items {
+      display: flex;
+    }
+  }
+  
+  @media only screen and (max-width: 1024px) {
+    .data__cards__item {
+      margin-bottom: 2rem;
+    }
+  }
+
+.row{
+  display: table;
+  width: 98%; /*Optional*/
+  table-layout: fixed; /*Optional*/
+  border-spacing: 10px; /*Optional*/
+  background-color: #FFFEF1;
+  margin-left: 10px;
+  padding: 0px;
+}
+
+
+.items__favourites__container{
+  display:table-cell;
+  position: relative;
+  left:50px;
+}
+
+.services__favourites__container{
+  display:table-cell;
+  position: relative;
+  left:100px;
+}
+
+.projects__favourites__container{
+  display:table-cell;
+  position: relative;
+  left:150px;
+}
+
+
+#user__item__delete{
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  position: absolute;
+  left: 150px;
+}
+
+#favourites__list__item{
+  margin: 10px;
+  font-weight: bold;
+}
+
+.table{
+  border: #252e48 2pt;
+}
+
+#favourites__heading{
+  color: #df7b01;
+  text-decoration: underline;
+  margin: 20px;
+}
+
+
+
+
+.edit_add_delete_container {
+  background-color:lightgray;
+  padding-bottom: 20px;
+  margin-top: 100px;
+  padding-bottom: 200px;
+}

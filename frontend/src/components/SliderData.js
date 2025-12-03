@@ -1,0 +1,22 @@
+export const SliderData = [
+  {
+    image:
+      'https://safeelectric.ie/wp-content/uploads/2022/05/safe-electric-logo.svg'
+  },
+  {
+    image:
+      'https://i.redd.it/lexjmw8gryq21.jpg'
+  },
+  {
+    image:
+      'https://pbs.twimg.com/media/DWItWGPU8AAy4Kx.jpg'
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+  },
+  {
+    image:
+      'https://electrician-dublin.ie/wp-content/uploads/2021/05/electricians-dublin.jpg'
+  }
+];
