@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import "../App.css";
 
@@ -115,6 +116,7 @@ export default class Register extends Component {
             alt="profile-img"
             className="profile-img-card"
           />
+          <h2>Create Account</h2>
           <Form
             onSubmit={this.handleRegister}
             ref={c => {
@@ -132,10 +134,11 @@ export default class Register extends Component {
                     value={this.state.username}
                     onChange={this.onChangeUsername}
                     validations={[required, vusername]}
+                    placeholder="Choose a username (3-20 characters)"
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="email">Email Address</label>
                   <Input
                     type="text"
                     className="form-control"
@@ -143,6 +146,7 @@ export default class Register extends Component {
                     value={this.state.email}
                     onChange={this.onChangeEmail}
                     validations={[required, email]}
+                    placeholder="Enter your email address"
                   />
                 </div>
                 <div className="form-group">
@@ -154,10 +158,21 @@ export default class Register extends Component {
                     value={this.state.password}
                     onChange={this.onChangePassword}
                     validations={[required, vpassword]}
+                    placeholder="Choose a strong password (6-40 characters)"
                   />
                 </div>
                 <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
+                  <button className="btn btn-primary btn-block">
+                    <span>Sign Up</span>
+                  </button>
+                </div>
+                <div className="form-group" style={{ textAlign: 'center', marginTop: '20px' }}>
+                  <p style={{ color: '#666', fontSize: '14px', marginBottom: '10px' }}>
+                    Already have an account?{' '}
+                    <Link to="/login" style={{ color: '#d66e00', fontWeight: '600', textDecoration: 'none' }}>
+                      Login here
+                    </Link>
+                  </p>
                 </div>
               </div>
             )}
@@ -173,6 +188,13 @@ export default class Register extends Component {
                 >
                   {this.state.message}
                 </div>
+                {this.state.successful && (
+                  <div style={{ textAlign: 'center', marginTop: '15px' }}>
+                    <Link to="/login" style={{ color: '#d66e00', fontWeight: '600', textDecoration: 'none', fontSize: '14px' }}>
+                      Click here to login →
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
             <CheckButton

@@ -4,29 +4,26 @@ import CardItem from './CardItem';
 function Cards() {
   return (
     <div className='cards'>
-      <div>
-        <h1 className="ccWelcomeHeader">Welcome to CC Electrical</h1>
-        <p className="welcome">
-          CC Electrical provides quality services which meet Safe Electric standards. 
-          With a registered Safe Electrical Contractor, you can rest assured that it will
-          be a good investment with CC Electrical. View our recent projects, list of services 
-          and some of the inventory we commonly use on our projects. You can also find our 
-          contact details <a href="/contact">here.</a>
-          <br/>
-          <br/>
-          Please browse the different links below to our <a href="/ServicesPublic">Services</a>,  
-          <a href="/ProjectsPublic"> Projects</a>, and <a href="/ItemsPublic">Items </a> 
-          associated with CC Electrical. Then if you like what you see and want to let us
-          know, register and log in so you can add these different Services, Projects & Items to 
-          you Favourties list, this list can be added to the message within the <a href="/contact">Contact Us</a> page.
+      <div className='cards__intro'>
+        <h2 className="cards__section-title">Explore What We Offer</h2>
+        <p className="cards__description">
+          View our recent projects, comprehensive list of services, and the quality inventory 
+          we use on our projects. Browse through the sections below to discover what makes 
+          CC Electrical your trusted electrical partner.
+        </p>
+        <p className="cards__cta">
+          Want to save your favorites? <a href="/register" className="cards__link">Register</a> and 
+          log in to create your personalized list of services, projects, and items. You can then 
+          share this list with us through our <a href="/contact" className="cards__link">Contact Us</a> page 
+          to get a customized quote.
         </p>
       </div>
       <div className='cards__container'>
         <div className='cards__wrapper'>
           <ul className='cards__items'>
             <CardItem
-              src='./images/logo_alone1.jpg'
-              text='Learn more about the company.'
+              src='images/logo with company name1.jpg'
+              text='Learn more about CC Electrical Services and our professional team.'
               label='About Us'
               path='/about'
             />

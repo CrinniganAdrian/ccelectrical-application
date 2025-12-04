@@ -3,7 +3,7 @@ import axios from 'axios';
 // Production URL (AWS Elastic Beanstalk)
 //const PROJECT_API_BASE_URL = "http://ccelectricalservices.eu-west-1.elasticbeanstalk.com/projects";
 // Local Development URL
-const PROJECT_API_BASE_URL = "http://localhost:8080/projects";
+const PROJECT_API_BASE_URL = "http://localhost:8082/projects";
 
 class ProjectService {
 

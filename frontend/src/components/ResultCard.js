@@ -1,20 +1,33 @@
-import React, { useContext , useState} from "react";
-import Moment from "react-moment";
+import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { DataItem2 } from './DataItem2';
-import { FavoriteButton } from '../components/FavoriteButton';
 import "../pages/Data.css";
-export const ResultCard = ({ item }) => {
+
+export const ResultCard = ({ item, type }) => {
   const {
-    addItemToWatchlist,
-    watchlist,
-    watched,
+    favItems,
+    favProjects,
+    favServices,
+    toggleItemFavorite,
+    toggleProjectFavorite,
+    toggleServiceFavorite,
   } = useContext(GlobalContext);
-  let storedItem = watchlist.find((o) => o.id === item.id);
-  const watchlistDisabled = storedItem
-    ? true
-    : false;
-  const [iconView, setIconView] = useState(false);
+
+  // Determine which array and toggle function to use based on type
+  let isFavorited = false;
+  let toggleFavorite = null;
+
+  if (type === 'item') {
+    isFavorited = favItems.find((i) => i.id === item.id) ? true : false;
+    toggleFavorite = () => toggleItemFavorite(item);
+  } else if (type === 'project') {
+    isFavorited = favProjects.find((p) => p.id === item.id) ? true : false;
+    toggleFavorite = () => toggleProjectFavorite(item);
+  } else if (type === 'service') {
+    isFavorited = favServices.find((s) => s.id === item.id) ? true : false;
+    toggleFavorite = () => toggleServiceFavorite(item);
+  }
+
   return (
       <table className="table table-borderless">
         <thead>
@@ -22,7 +35,7 @@ export const ResultCard = ({ item }) => {
           </tr>
         </thead>
         <tbody className="table__data">
-            <tr key = {item.id}>
+            <tr key={item.id}>
               <DataItem2 id="data__cards__item"
                 src={item.imageUrl}
                 label={item.name}
@@ -32,13 +45,13 @@ export const ResultCard = ({ item }) => {
               </td>
               <td className="crud__action__buttons">
                 <button
-                  id="favouriteOn" className="btn btn-primary"
-                  disabled={watchlistDisabled}
-                  onClick={() => {addItemToWatchlist(item); setIconView(iconView, !iconView)}}
+                  id="favouriteOn" 
+                  className="btn btn-primary"
+                  onClick={toggleFavorite}
                 >
-                  { iconView
-                    ? <i class="fas fa-star"></i>
-                    : <i class="far fa-star"></i>
+                  {isFavorited
+                    ? <i className="fas fa-star"></i>
+                    : <i className="far fa-star"></i>
                   }
                 </button>
               </td>

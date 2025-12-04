@@ -16,6 +16,7 @@ ccelectrical-application/
 
 ## 📋 Table of Contents
 
+- [Project Presentation](#project-presentation)
 - [Getting Started](#getting-started)
 - [Frontend Setup](#frontend-setup)
 - [Backend Setup](#backend-setup)
@@ -23,6 +24,14 @@ ccelectrical-application/
 - [Architecture](#architecture)
 - [Technologies](#technologies)
 - [Development](#development)
+
+## 📊 Project Presentation
+
+View the CC Electrical Service project presentation to understand the application's features and capabilities:
+
+**[CC Electrical Service - First Draft Presentation](https://docs.google.com/presentation/d/14KGhTZ78wvEmXd0Btv7zvS-6npPHuSMu/edit?rtpof=true&sd=true)**
+
+> **Note:** This is the first draft of the presentation. The application is currently being updated with new features and improvements. An updated presentation with the latest information will be added in the future.
 
 ## 🚀 Getting Started
 

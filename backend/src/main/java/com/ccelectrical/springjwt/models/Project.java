@@ -1,4 +1,5 @@
 package com.ccelectrical.springjwt.models;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +12,11 @@ public class Project {
     @GeneratedValue
     private Long id;
     private String name;
+    
+    @Column(length = 2000)
     private String description;
+    
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String imageUrl;
     
     // No-args constructor

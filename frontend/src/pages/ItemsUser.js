@@ -24,10 +24,10 @@ export default class ItemsUser extends Component {
             console.log(data)
             const items = data.map(item =>
 
-                <div>
+                <div key={item.id}>
                 
                 {
-                        <ResultCard item={item} />
+                        <ResultCard item={item} type="item" />
                 }
 
                 </div>

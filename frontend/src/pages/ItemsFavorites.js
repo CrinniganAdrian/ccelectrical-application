@@ -4,7 +4,7 @@ import { ItemCard } from "../components/ItemCard";
 import "../App.css";
 
 export const ItemsFavorites = () => {
-  const { watchlist } = useContext(GlobalContext);
+  const { favItems } = useContext(GlobalContext);
 
   return (
     <div data-testid="favorite-1" className="item-page">
@@ -13,14 +13,14 @@ export const ItemsFavorites = () => {
           <h1 className="favouritesHeading">Favourite Items</h1>
 
           <span className="count-pill">
-            {watchlist.length} {watchlist.length === 1 ? "Item" : "Items"}
+            {favItems.length} {favItems.length === 1 ? "Item" : "Items"}
           </span>
         </div>
 
-        {watchlist.length > 0 ? (
+        {favItems.length > 0 ? (
           <div className="item-grid">
-            {watchlist.map((item) => (
-              <ItemCard item={item} key={item.id} type="watchlist" />
+            {favItems.map((item) => (
+              <ItemCard item={item} key={item.id} type="favItems" />
             ))}
           </div>
         ) : (

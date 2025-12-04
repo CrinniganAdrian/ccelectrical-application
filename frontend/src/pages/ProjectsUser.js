@@ -24,10 +24,10 @@ export default class ProjectsUser extends Component {
             console.log(data)
             const projects = data.map(projects =>
 
-                <div>
+                <div key={projects.id}>
                 
                 {
-                        <ResultCard item={projects} />
+                        <ResultCard item={projects} type="project" />
                 }
 
                 </div>

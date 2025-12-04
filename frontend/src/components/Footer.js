@@ -1,42 +1,73 @@
 import React from 'react';
 import './Footer.css';
-import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAtom } from '@fortawesome/free-solid-svg-icons'
 
 function Footer() {
   return (
-    <div className='footer-container'>
+    <footer className='modern-footer'>
+      <div className='footer-content'>
+        <div className='footer-section footer-brand'>
+          <h3 className='footer-logo'>CC Electrical</h3>
+          <p className='footer-tagline'>Quality Electrical Services</p>
+          <p className='footer-description'>
+            Professional electrical solutions for residential and commercial needs.
+          </p>
+        </div>
 
-      <div className='footer-links'>
-        <div className='footer-link-wrapper'>
-          <div className='footer-link-items'>
-            <Link className="footerPageLinks" to='/about'><h2>About Us</h2></Link>
+        <div className='footer-section footer-links-section'>
+          <h4 className='footer-heading'>Quick Links</h4>
+          <div className='footer-links-grid'>
+            <Link className='footer-link' to='/about'>
+              <i className='fa fa-info-circle'></i> About Us
+            </Link>
+            <Link className='footer-link' to='/contact'>
+              <i className='fa fa-envelope'></i> Contact Us
+            </Link>
+            <Link className='footer-link' to='/faqs'>
+              <i className='fa fa-question-circle'></i> FAQs
+            </Link>
           </div>
-          <div className='footer-link-items'>
-            <Link className="footerPageLinks" to='/contact'><h2>Contact Us</h2></Link>
+        </div>
+
+        <div className='footer-section footer-contact'>
+          <h4 className='footer-heading'>Contact Info</h4>
+          <div className='footer-contact-item'>
+            <i className='fa fa-envelope'></i>
+            <span>ciaran@ccelectrical.ie</span>
+          </div>
+          <div className='footer-contact-item'>
+            <i className='fa fa-phone'></i>
+            <span>0871234567</span>
+          </div>
+        </div>
+
+        <div className='footer-section footer-social'>
+          <h4 className='footer-heading'>Follow Us</h4>
+          <div className='footer-social-links'>
+            <a href='#' className='social-link' aria-label='Facebook'>
+              <i className='fa fa-facebook'></i>
+            </a>
+            <a href='#' className='social-link' aria-label='Instagram'>
+              <i className='fa fa-instagram'></i>
+            </a>
+            <a href='#' className='social-link' aria-label='LinkedIn'>
+              <i className='fa fa-linkedin'></i>
+            </a>
           </div>
         </div>
       </div>
 
-      <div className="copyrightDiv">
-        <div className="copyright">
-            <i className="fa-solid fa-copyright fa-lg">2022 CC Electrical</i>
+      <div className='footer-bottom'>
+        <div className='footer-copyright'>
+          <i className='fa fa-copyright'></i> {new Date().getFullYear()} CC Electrical. All rights reserved.
         </div>
-        <div className="developed">
-          Website developed by Adrian Crinnigan.
+        <div className='footer-credit'>
+          Website developed by Adrian Crinnigan
         </div>
       </div>
-      <div className='social-media-wrap'>
-        <div className="fb"><Link to=''><i className='fa-brands fa-facebook fa-3x' /></Link></div>
-        <div className="insta"><Link to=''><i className='fab fa-instagram fa-3x' /></Link></div>
-        <div className="linked"><Link to=''><i className='fab fa-linkedin fa-3x' /></Link></div>
-        <FontAwesomeIcon icon="fa-brands fa-facebook-f" />
-      </div>
-
-    </div>
+    </footer>
   );
 }
+
 export default Footer;

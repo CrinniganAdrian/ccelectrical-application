@@ -91,6 +91,7 @@ class Login extends Component {
             alt="profile-img"
             className="profile-img-card"
           />
+          <h2>Welcome Back</h2>
           <Form 
             onSubmit={this.handleLogin}
             ref={c => {
@@ -106,6 +107,7 @@ class Login extends Component {
                 value={this.state.username}
                 onChange={this.onChangeUsername}
                 validations={[required]}
+                placeholder="Enter your username"
               />
             </div>
             <div className="form-group">
@@ -117,18 +119,8 @@ class Login extends Component {
                 value={this.state.password}
                 onChange={this.onChangePassword}
                 validations={[required]}
+                placeholder="Enter your password"
               />
-            </div>
-            <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-              >
-                {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
             </div>
             {this.state.message && (
               <div className="form-group">
@@ -137,6 +129,25 @@ class Login extends Component {
                 </div>
               </div>
             )}
+            <div className="form-group">
+              <button
+                className="btn btn-primary btn-block"
+                disabled={this.state.loading}
+              >
+                {this.state.loading && (
+                  <span className="spinner-border spinner-border-sm" style={{ marginRight: '10px' }}></span>
+                )}
+                <span>{this.state.loading ? 'Logging in...' : 'Login'}</span>
+              </button>
+            </div>
+            <div className="form-group" style={{ textAlign: 'center', marginTop: '20px' }}>
+              <p style={{ color: '#666', fontSize: '14px', marginBottom: '10px' }}>
+                Don't have an account?{' '}
+                <Link to="/register" style={{ color: '#d66e00', fontWeight: '600', textDecoration: 'none' }}>
+                  Sign up here
+                </Link>
+              </p>
+            </div>
             <CheckButton
               style={{ display: "none" }}
               ref={c => {

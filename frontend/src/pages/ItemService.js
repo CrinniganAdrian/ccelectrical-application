@@ -3,7 +3,7 @@ import axios from 'axios';
 // Production URL (AWS Elastic Beanstalk)
 //const ITEM_API_BASE_URL = "http://ccelectricalservices.eu-west-1.elasticbeanstalk.com/items";
 // Local Development URL
-const ITEM_API_BASE_URL = "http://localhost:8080/items";
+const ITEM_API_BASE_URL = "http://localhost:8082/items";
 
 class ItemService {
 

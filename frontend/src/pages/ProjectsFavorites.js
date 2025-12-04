@@ -16,7 +16,7 @@ export const ProjectsFavorites = () => {
           </span>
         </div>
 
-        {watchlist.length > 0 ? (
+        {favProjects.length > 0 ? (
           <div className="item-grid">
             {favProjects.map((item) => (
               <ItemCard item={item} key={item.id} type="favProjects" />

@@ -4,6 +4,7 @@ import ContactDetails from './contactDetails.component'
 import "../App.css"; 
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
+
 export default class Contact extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,7 @@ export default class Contact extends Component {
       content: ""
     };
   }
+
   componentDidMount() {
     UserService.getUserBoard().then(
       response => {
@@ -33,18 +35,22 @@ export default class Contact extends Component {
       }
     );
   }
-  render(){
-     return (
-         <div className="contactDiv">
-            <table>
-            <td id="tableContactForm">
-              <ContactForm/>
-            </td>
-            <td id="tableContactDetails">
-              <ContactDetails/>
-            </td>
-            </table>
-         </div>
-     );
-     }
+
+  render() {
+    return (
+      <div className="contact-page-container">
+        <div className="contact-hero">
+          <h1 className="contact-page-title">Get In Touch</h1>
+          <p className="contact-page-subtitle">
+            We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          </p>
+        </div>
+        
+        <div className="contactDiv">
+          <ContactForm/>
+          <ContactDetails/>
+        </div>
+      </div>
+    );
   }
+}

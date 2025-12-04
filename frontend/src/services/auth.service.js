@@ -3,12 +3,12 @@ import axios from "axios";
 // Production URL (AWS Elastic Beanstalk)
 //const API_URL = "http://ccelectricalservices.eu-west-1.elasticbeanstalk.com/api/auth/";
 // Local Development URL
-const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = "http://localhost:8082/api/auth/";
 
 // Production URL (AWS Elastic Beanstalk)
 //const USER_API_URL = "http://ccelectricalservices.eu-west-1.elasticbeanstalk.com/users/";
 // Local Development URL
-const USER_API_URL = "http://localhost:8080/users/";
+const USER_API_URL = "http://localhost:8082/users/";
 
 const ITEMS_API_URL = "/items/";
 class AuthService {
@@ -28,6 +28,18 @@ class AuthService {
   }
 
   logout() {
+    // Get user ID before removing user data
+    const user = this.getCurrentUser();
+    const userId = user ? user.id : null;
+    
+    // Clear user-specific favorites from localStorage
+    if (userId) {
+      localStorage.removeItem(`favItems_user_${userId}`);
+      localStorage.removeItem(`favProjects_user_${userId}`);
+      localStorage.removeItem(`favServices_user_${userId}`);
+    }
+    
+    // Remove user data
     localStorage.removeItem("user");
   }
 

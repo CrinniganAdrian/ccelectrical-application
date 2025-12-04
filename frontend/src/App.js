@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Link, Router } from "react-router-dom";
+import { Switch, Route, Link, withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import companyLogo from './images/logo.jpg';
@@ -20,6 +20,8 @@ import Services from "./pages/Services";
 import Services2 from "./pages/Services2";
 import Projects from "./pages/Projects";
 import Items from "./pages/Items";
+import ImageSlider from './components/ImageSlider';
+import { SliderData } from './components/SliderData';
 
 import AddItem from "./items/AddItem";
 
@@ -60,8 +62,12 @@ import ServicesUser from "./pages/ServicesUser";
 import Sample from "./pages/sample"
 import Sample2 from "./pages/Sample2"
 import { ItemsFavorites } from "./pages/ItemsFavorites";
+import { ProjectsFavorites } from "./pages/ProjectsFavorites";
+import { ServicesFavorites } from "./pages/ServicesFavorites";
+import { AllFavorites } from "./pages/AllFavorites";
 
 import { Add } from "./pages/Add";
+import Faqs from "./pages/Faqs";
 
 import { GlobalProvider } from "./context/GlobalState";
 
@@ -76,6 +82,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);
+    this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
 
     this.state = {
       showModeratorBoard: false,
@@ -93,7 +100,13 @@ class App extends Component {
       showServicesPublic: false,
       showServicesUser: false,
       showServicesAdmin: false,
+
+      mobileMenuOpen: false,
     };
+  }
+
+  toggleMobileMenu() {
+    this.setState({ mobileMenuOpen: !this.state.mobileMenuOpen });
   }
 
   componentDidMount() {
@@ -152,147 +165,169 @@ class App extends Component {
       currentUser, 
       showItemsPublic, showItemsUser, showItemsAdmin,
       showProjectsPublic, showProjectsUser, showProjectsAdmin,
-      showServicesPublic, showServicesUser, showServicesAdmin
+      showServicesPublic, showServicesUser, showServicesAdmin,
+      mobileMenuOpen
     
     } = this.state;
 
     return (
 
       <div id="main">
-        <nav id="nav" className="navbar navbar-expand-lg navbar-light bg-light">
-        <img id="logo" src={companyLogo} alt="logo"/>
-          <Link to={"/"} id="title" className="navbar-brand">
-            CC Electrical
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item" id="home">
-              <Link to={"/"} className="nav-link">
-                Home
-              </Link>
-            </li>
+        <nav id="nav" className="navbar navbar-expand-lg navbar-dark modern-navbar">
+          <div className="nav-brand-section">
+            <img id="logo" src={companyLogo} alt="logo"/>
+            <Link to={"/"} id="title" className="navbar-brand">
+              CC Electrical
+            </Link>
+          </div>
+          
+          <button 
+            className="navbar-toggler" 
+            type="button" 
+            onClick={this.toggleMobileMenu}
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-            <li className="nav-item">
-              <Link to={"/about"} className="nav-link">
-                About US
-              </Link>
-            </li>
-
-
-            {showServicesPublic &&(
-            <li className="nav-item">
-              <Link to={"/ServicesPublic"} className="nav-link">
-                Services
-              </Link>
-            </li>
-            )}
-
-            {showServicesUser && !showServicesPublic && (
+          <div className={`collapse navbar-collapse ${mobileMenuOpen ? 'show' : ''}`} id="navbarContent">
+            <ul className="navbar-nav nav-center">
               <li className="nav-item">
-                <Link to={"/ServicesUser"} className="nav-link">
-                  Services
+                <Link to={"/"} className="nav-link">
+                  <i className="fa fa-home"></i> Home
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/about"} className="nav-link">
+                  <i className="fa fa-info-circle"></i> About Us
+                </Link>
+              </li>
+
+              {showServicesPublic &&(
+              <li className="nav-item">
+                <Link to={"/ServicesPublic"} className="nav-link">
+                  <i className="fa fa-wrench"></i> Services
                 </Link>
               </li>
               )}
 
-            
-            {showServicesAdmin && !showServicesPublic && (
-            <li className="nav-item">
-              <Link to={"/services2"} className="nav-link">
-                Services
-              </Link>
-            </li>
-            )}
-
-
-
-            { showProjectsPublic &&( 
-            <li className="nav-item">
-              <Link to={"/ProjectsPublic"} className="nav-link">
-                Projects
-              </Link>
-            </li>
-            )}
-
-
-            { showProjectsUser && !showProjectsPublic &&( 
-              <li className="nav-item">
-                <Link to={"/ProjectsUser"} className="nav-link">
-                  Projects
-                </Link>
-              </li>
-              )}
-
-
-              { showProjectsAdmin && !showProjectsPublic &&( 
+              {showServicesUser && !showServicesPublic && (
                 <li className="nav-item">
-                  <Link to={"/projects2"} className="nav-link">
-                    Projects
+                  <Link to={"/ServicesUser"} className="nav-link">
+                    <i className="fa fa-wrench"></i> Services
                   </Link>
                 </li>
-                )}  
-
-            { showItemsPublic && (
-            <li className="nav-item">
-              <Link to={"/ItemsPublic"} className="nav-link">
-                Items
-              </Link>
-            </li>
-            )}
-
-            { showItemsUser && !showItemsPublic && (
+                )}
+              
+              {showServicesAdmin && !showServicesPublic && (
               <li className="nav-item">
-                <Link to={"/ItemsUser"} className="nav-link">
-                  Items
+                <Link to={"/services2"} className="nav-link">
+                  <i className="fa fa-wrench"></i> Services
                 </Link>
               </li>
               )}
-            
-              
-              { showItemsAdmin && !showItemsPublic && (
+
+              { showProjectsPublic &&( 
+              <li className="nav-item">
+                <Link to={"/ProjectsPublic"} className="nav-link">
+                  <i className="fa fa-folder"></i> Projects
+                </Link>
+              </li>
+              )}
+
+              { showProjectsUser && !showProjectsPublic &&( 
                 <li className="nav-item">
-                  <Link to={"/items2"} className="nav-link">
-                    Items
+                  <Link to={"/ProjectsUser"} className="nav-link">
+                    <i className="fa fa-folder"></i> Projects
                   </Link>
                 </li>
                 )}
 
-            <li className="nav-item">
-              <Link to={"/contact"} className="nav-link">
-                Contact Us
-              </Link>
-            </li>
+                { showProjectsAdmin && !showProjectsPublic &&( 
+                  <li className="nav-item">
+                    <Link to={"/projects2"} className="nav-link">
+                      <i className="fa fa-folder"></i> Projects
+                    </Link>
+                  </li>
+                  )}  
+
+              { showItemsPublic && (
+              <li className="nav-item">
+                <Link to={"/ItemsPublic"} className="nav-link">
+                  <i className="fa fa-th"></i> Items
+                </Link>
+              </li>
+              )}
+
+              { showItemsUser && !showItemsPublic && (
+                <li className="nav-item">
+                  <Link to={"/ItemsUser"} className="nav-link">
+                    <i className="fa fa-th"></i> Items
+                  </Link>
+                </li>
+                )}
+                
+                { showItemsAdmin && !showItemsPublic && (
+                  <li className="nav-item">
+                    <Link to={"/items2"} className="nav-link">
+                      <i className="fa fa-th"></i> Items
+                    </Link>
+                  </li>
+                  )}
+
+              <li className="nav-item">
+                <Link to={"/contact"} className="nav-link">
+                  <i className="fa fa-envelope"></i> Contact Us
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/faqs"} className="nav-link">
+                  <i className="fa fa-question-circle"></i> FAQs
+                </Link>
+              </li>
+            </ul>
+
+            {currentUser ? (
+              <ul className="navbar-nav nav-right">
+                <li className="nav-item user-profile-dropdown">
+                  <div className="user-profile-section">
+                    <i className="fa fa-user-circle user-icon"></i>
+                    <Link to={"/profile"} className="nav-link user-name">
+                      {currentUser.username}
+                    </Link>
+                  </div>
+                </li>
+                <li className="nav-item">
+                  <a href="/login" className="nav-link logout-btn" onClick={this.logOut}>
+                    <i className="fa fa-sign-out"></i> Logout
+                  </a>
+                </li>
+              </ul>
+            ) : (
+              <ul className="navbar-nav nav-right">
+                <li className="nav-item">
+                  <Link to={"/login"} className="nav-link login-btn">
+                    <i className="fa fa-sign-in"></i> Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/register"} className="nav-link signup-btn">
+                    <i className="fa fa-user-plus"></i> Sign Up
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}
         </nav>
         
+        {/* Full-width slider section - only on home page */}
+        {(this.props.location.pathname === '/' || this.props.location.pathname === '/home') && (
+          <div className="slider-section">
+            <ImageSlider slides={SliderData}/>
+          </div>
+        )}
         
           <div className="container mt-3">
           <GlobalProvider>
@@ -302,6 +337,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/about" component={About} />
               <Route exact path="/contact" component={Contact} />
+              <Route exact path="/faqs" component={Faqs} />
               <Route exact path="/ccservices" component={Services} />
               <Route exact path="/services2" component={Services2} />
               <Route exact path="/ServicesPublic" component={ServicesPublic} />
@@ -315,6 +351,9 @@ class App extends Component {
               <Route exact path="/editservice/:id" component={EditService} />
               <Route exact path="/editproject/:id" component={EditProject} />
               <Route exact path="/itemsFavorites" component={ItemsFavorites} />
+              <Route exact path="/projectsFavorites" component={ProjectsFavorites} />
+              <Route exact path="/servicesFavorites" component={ServicesFavorites} />
+              <Route exact path="/allFavorites" component={AllFavorites} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/items2" component={Items2} />
@@ -349,4 +388,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

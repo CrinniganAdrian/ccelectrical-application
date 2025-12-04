@@ -11,7 +11,7 @@ export const Add = () => {
       // Production URL (AWS Elastic Beanstalk)
       //const response = await fetch('http://ccelectricalservices.eu-west-1.elasticbeanstalk.com/items');
       // Local Development URL
-      const response = await fetch('http://localhost:8080/items');
+      const response = await fetch('http://localhost:8082/items');
       const itemsData = await response.json();
       setItems(itemsData);
     };

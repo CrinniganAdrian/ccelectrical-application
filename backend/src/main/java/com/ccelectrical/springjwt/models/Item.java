@@ -10,7 +10,11 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    
+    @Column(length = 2000)
     private String description;
+    
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String imageUrl;
     
     // No-args constructor

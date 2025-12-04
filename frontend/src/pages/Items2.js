@@ -52,7 +52,15 @@ class Items2 extends Component {
                 <h3>CC Electrical Items</h3>
                 </header>
             </div>
-            <div>
+            
+            <div className="add-data-button-container">
+                <button className="add-data-button" onClick={this.addItem}>
+                    <i className="fas fa-plus"></i>
+                    <span>Add New Item</span>
+                </button>
+            </div>
+
+            <div className="data__cards__wrapper">
                  <div className = "row">
                         <table className="table table-borderless">
 
@@ -74,16 +82,16 @@ class Items2 extends Component {
                                                 {item.description}
                                             </td>
                                             <td className="crud__action__buttons">
-                                                <Link id="edit" className="btn btn-outline-primary mx-2" to={`/update-item/${item.id}`}>
+                                                <Link id="edit" to={`/update-item/${item.id}`}>
                                                     <i className="fa-solid fa-pen-to-square"></i>
+                                                    <span>Edit</span>
                                                 </Link>
                                                 <button
                                                 id="delete"
-                                                className="btn btn-danger mx-2"
                                                 onClick={ () => this.deleteItem(item.id)}
-
                                                 >
                                                     <FontAwesomeIcon icon={faTrash} />
+                                                    <span>Delete</span>
                                                 </button>
                                             </td>
                                         </tr>
@@ -93,13 +101,6 @@ class Items2 extends Component {
                         </table>
 
                  </div>
-
-
-                <div id="addDataBTN">
-                        <button className="btn btn-primary" onClick={this.addItem}> 
-                        <i className="fas fa-plus fa-5x"></i>
-                        </button>
-                </div>
 
             </div>
             </div>

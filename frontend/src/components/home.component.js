@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
-import ImageSlider from '../components/ImageSlider';
-import { SliderData } from '../components/SliderData';
 import UserService from "../services/user.service";
 import HeroSection from '../components/HeroSection';
 import Cards from '../components/Cards';
@@ -33,11 +31,8 @@ export default class Home extends Component {
   render() {
     return (
       <div id="outerHomeDiv">
-        <ImageSlider slides={SliderData}/>
-        <div id="main" className="container">
-          <Cards/>
-          <HeroSection/>
-        </div>
+        <HeroSection/>
+        <Cards/>
       </div>
     );
   }

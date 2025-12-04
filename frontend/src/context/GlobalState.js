@@ -1,15 +1,29 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
 
+// Helper function to get current user ID
+const getCurrentUserId = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user ? user.id : null;
+};
+
+// Helper function to get user-specific key
+const getUserKey = (baseKey) => {
+  const userId = getCurrentUserId();
+  return userId ? `${baseKey}_user_${userId}` : baseKey;
+};
+
 // initial state
 const initialState = {
-  watchlist: localStorage.getItem("watchlist")
-    ? JSON.parse(localStorage.getItem("watchlist"))
+  favItems: localStorage.getItem(getUserKey("favItems"))
+    ? JSON.parse(localStorage.getItem(getUserKey("favItems")))
     : [],
-  favServices: localStorage.getItem("favServices")
-    ? JSON.parse(localStorage.getItem("favServices"))
+  favProjects: localStorage.getItem(getUserKey("favProjects"))
+    ? JSON.parse(localStorage.getItem(getUserKey("favProjects")))
     : [],
-  
+  favServices: localStorage.getItem(getUserKey("favServices"))
+    ? JSON.parse(localStorage.getItem(getUserKey("favServices")))
+    : [],
 };
 
 // create context
@@ -20,44 +34,86 @@ export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   useEffect(() => {
-    localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
-    localStorage.setItem("favServices", JSON.stringify(state.favServices));
+    localStorage.setItem(getUserKey("favItems"), JSON.stringify(state.favItems));
+    localStorage.setItem(getUserKey("favProjects"), JSON.stringify(state.favProjects));
+    localStorage.setItem(getUserKey("favServices"), JSON.stringify(state.favServices));
   }, [state]);
 
-  // actions
-  const addItemToWatchlist = (item) => {
-    dispatch({ type: "ADD_MOVIE_TO_WATCHLIST", payload: item });
+  // Items actions
+  const addItemToFavorites = (item) => {
+    dispatch({ type: "ADD_ITEM_TO_FAVORITES", payload: item });
   };
 
-  const removeItemFromWatchlist = (id) => {
-    dispatch({ type: "REMOVE_MOVIE_FROM_WATCHLIST", payload: id });
+  const removeItemFromFavorites = (id) => {
+    dispatch({ type: "REMOVE_ITEM_FROM_FAVORITES", payload: id });
   };
 
-  
-
-  const moveToWatchlist = (item) => {
-    dispatch({ type: "MOVE_TO_WATCHLIST", payload: item });
+  const toggleItemFavorite = (item) => {
+    const exists = state.favItems.find((i) => i.id === item.id);
+    if (exists) {
+      removeItemFromFavorites(item.id);
+    } else {
+      addItemToFavorites(item);
+    }
   };
 
-
-  const addItemToFavServices = (item) => {
-    dispatch({ type: "ADD_MOVIE_TO_FAVSERVICES", payload: item });
+  // Projects actions
+  const addProjectToFavorites = (project) => {
+    dispatch({ type: "ADD_PROJECT_TO_FAVORITES", payload: project });
   };
 
-  const moveToFavServices = (item) => {
-    dispatch({ type: "MOVE_TO_FAVSERVICES", payload: item });
+  const removeProjectFromFavorites = (id) => {
+    dispatch({ type: "REMOVE_PROJECT_FROM_FAVORITES", payload: id });
   };
 
-  
+  const toggleProjectFavorite = (project) => {
+    const exists = state.favProjects.find((p) => p.id === project.id);
+    if (exists) {
+      removeProjectFromFavorites(project.id);
+    } else {
+      addProjectToFavorites(project);
+    }
+  };
+
+  // Services actions
+  const addServiceToFavorites = (service) => {
+    dispatch({ type: "ADD_SERVICE_TO_FAVORITES", payload: service });
+  };
+
+  const removeServiceFromFavorites = (id) => {
+    dispatch({ type: "REMOVE_SERVICE_FROM_FAVORITES", payload: id });
+  };
+
+  const toggleServiceFavorite = (service) => {
+    const exists = state.favServices.find((s) => s.id === service.id);
+    if (exists) {
+      removeServiceFromFavorites(service.id);
+    } else {
+      addServiceToFavorites(service);
+    }
+  };
+
+  // Clear all favorites (useful for logout)
+  const clearAllFavorites = () => {
+    dispatch({ type: "CLEAR_ALL_FAVORITES" });
+  };
 
   return (
     <GlobalContext.Provider
       value={{
-        watchlist: state.watchlist,
-        addItemToWatchlist,
-        removeItemFromWatchlist,
-        moveToWatchlist,
-        moveToFavServices,
+        favItems: state.favItems,
+        favProjects: state.favProjects,
+        favServices: state.favServices,
+        addItemToFavorites,
+        removeItemFromFavorites,
+        toggleItemFavorite,
+        addProjectToFavorites,
+        removeProjectFromFavorites,
+        toggleProjectFavorite,
+        addServiceToFavorites,
+        removeServiceFromFavorites,
+        toggleServiceFavorite,
+        clearAllFavorites,
       }}
     >
       {props.children}

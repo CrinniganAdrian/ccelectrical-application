@@ -24,10 +24,10 @@ export default class ServicesUser extends Component {
             console.log(data)
             const ccservices = data.map(ccservice =>
 
-                <div>
+                <div key={ccservice.id}>
                 
                 {
-                        <ResultCard item={ccservice} />
+                        <ResultCard item={ccservice} type="service" />
                 }
 
                 </div>

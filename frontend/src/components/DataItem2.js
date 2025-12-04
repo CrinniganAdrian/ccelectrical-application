@@ -13,6 +13,9 @@ export function DataItem2(props) {
               alt='Image'
               src={props.src}
             />
+            <div className='data__cards__item__name-overlay'>
+              {props.label}
+            </div>
           </figure>
         </Link>
       </td>

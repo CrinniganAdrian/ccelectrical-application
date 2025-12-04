@@ -9,14 +9,14 @@ export const ServicesFavorites = () => {
     <div data-testid="favorite-1" className="item-page">
       <div className="container">
         <div className="header">
-          <h1 className="heading">Favourite Items</h1>
+          <h1 className="heading">Favourite Services</h1>
 
           <span className="count-pill">
             {favServices.length} {favServices.length === 1 ? "Item" : "Items"}
           </span>
         </div>
 
-        {watchlist.length > 0 ? (
+        {favServices.length > 0 ? (
           <div className="item-grid">
             {favServices.map((item) => (
               <ItemCard item={item} key={item.id} type="favServices" />

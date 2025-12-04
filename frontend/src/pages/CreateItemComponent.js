@@ -1,27 +1,30 @@
 import React, { Component } from 'react'
 import ItemService from './ItemService';
+import '../pages/Data.css';
 
 class CreateItemComponent extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            // step 2
             id: this.props.match.params.id,
             name: '',
             description: '',
-            imageUrl: ''
+            imageUrl: '',
+            dragActive: false,
+            previewImage: null
         }
         this.changeNameHandler = this.changeNameHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeImageUrlHandler = this.changeImageUrlHandler.bind(this);
         this.saveOrUpdateItem = this.saveOrUpdateItem.bind(this);
+        this.handleDrag = this.handleDrag.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
+        this.handleFileInput = this.handleFileInput.bind(this);
+        this.handleFile = this.handleFile.bind(this);
     }
 
-    // step 3
     componentDidMount(){
-
-        // step 4
         if(this.state.id === '_add'){
             return
         }else{
@@ -30,17 +33,18 @@ class CreateItemComponent extends Component {
                 this.setState({
                     name: item.name,
                     description: item.description,
-                    imageUrl : item.imageUrl
+                    imageUrl : item.imageUrl,
+                    previewImage: item.imageUrl
                 });
             });
         }        
     }
+
     saveOrUpdateItem = (e) => {
         e.preventDefault();
         let item = {name: this.state.name, description: this.state.description, imageUrl: this.state.imageUrl};
         console.log('item => ' + JSON.stringify(item));
 
-        // step 5
         if(this.state.id === '_add'){
             ItemService.newItem(item).then(res =>{
                 this.props.history.push('/items2');
@@ -61,7 +65,51 @@ class CreateItemComponent extends Component {
     }
 
     changeImageUrlHandler= (event) => {
-        this.setState({imageUrl: event.target.value});
+        this.setState({
+            imageUrl: event.target.value,
+            previewImage: event.target.value
+        });
+    }
+
+    handleDrag(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.type === "dragenter" || e.type === "dragover") {
+            this.setState({ dragActive: true });
+        } else if (e.type === "dragleave") {
+            this.setState({ dragActive: false });
+        }
+    }
+
+    handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.setState({ dragActive: false });
+        
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            this.handleFile(e.dataTransfer.files[0]);
+        }
+    }
+
+    handleFileInput(e) {
+        if (e.target.files && e.target.files[0]) {
+            this.handleFile(e.target.files[0]);
+        }
+    }
+
+    handleFile(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                this.setState({
+                    previewImage: reader.result,
+                    imageUrl: reader.result
+                });
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please upload an image file');
+        }
     }
 
     cancel(){
@@ -75,36 +123,83 @@ class CreateItemComponent extends Component {
             return <h3 className="text-center">Update Item</h3>
         }
     }
+
     render() {
         return (
             <div>
                 <br></br>
                    <div className = "container">
                         <div className = "row">
-                            <div className = "card col-md-6 offset-md-3 offset-md-3">
-                                {
-                                    this.getTitle()
-                                }
+                            <div className = "card col-md-8 offset-md-2" style={{marginBottom: '100px'}}>
+                                {this.getTitle()}
                                 <div className = "card-body">
                                     <form>
                                         <div className = "form-group">
                                             <label> Item Name: </label>
                                             <input placeholder="Item Name" name="name" className="form-control" 
-                                                value={this.state.name} onChange={this.changeNameHandler}/>
+                                                value={this.state.name} onChange={this.changeNameHandler} required/>
                                         </div>
                                         <div className = "form-group">
                                             <label> Item Description: </label>
-                                            <input placeholder="Item Description" name="description" className="form-control" 
-                                                value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                                            <textarea placeholder="Item Description" name="description" className="form-control" 
+                                                value={this.state.description} onChange={this.changeDescriptionHandler} rows="3" required/>
                                         </div>
+
+                                        {/* Drag and Drop Image Upload */}
+                                        <div className="form-group">
+                                            <label>Image</label>
+                                            <div 
+                                                className={`drag-drop-zone ${this.state.dragActive ? "drag-active" : ""}`}
+                                                onDragEnter={this.handleDrag}
+                                                onDragLeave={this.handleDrag}
+                                                onDragOver={this.handleDrag}
+                                                onDrop={this.handleDrop}
+                                            >
+                                                {this.state.previewImage ? (
+                                                    <div className="image-preview-container">
+                                                        <img src={this.state.previewImage} alt="Preview" className="image-preview" />
+                                                        <button 
+                                                            type="button" 
+                                                            className="btn btn-sm btn-danger remove-image-btn"
+                                                            onClick={() => this.setState({ previewImage: null, imageUrl: "" })}
+                                                        >
+                                                            <i className="fas fa-times"></i> Remove
+                                                        </button>
+                                                    </div>
+                                                ) : (
+                                                    <div className="drag-drop-content">
+                                                        <i className="fas fa-cloud-upload-alt drag-drop-icon"></i>
+                                                        <p className="drag-drop-text">Drag & Drop your image here</p>
+                                                        <p className="drag-drop-or">or</p>
+                                                        <label htmlFor="fileInput" className="btn btn-primary browse-btn">
+                                                            <i className="fas fa-folder-open"></i> Browse Files
+                                                        </label>
+                                                        <input
+                                                            id="fileInput"
+                                                            type="file"
+                                                            accept="image/*"
+                                                            onChange={this.handleFileInput}
+                                                            style={{ display: 'none' }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+
                                         <div className = "form-group">
-                                            <label> Item ImageUrl: </label>
-                                            <input placeholder="Item ImageUrl" name="imageUrl" className="form-control" 
+                                            <label> Or enter Image URL: </label>
+                                            <input placeholder="Enter Image URL" name="imageUrl" className="form-control" 
                                                 value={this.state.imageUrl} onChange={this.changeImageUrlHandler}/>
                                         </div>
 
-                                        <button className="btn btn-success" onClick={this.saveOrUpdateItem}>Save</button>
-                                        <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
+                                        <div className="d-flex gap-2 justify-content-center mt-4">
+                                            <button className="btn btn-success btn-lg px-4" onClick={this.saveOrUpdateItem}>
+                                                <i className="fas fa-save"></i> Save
+                                            </button>
+                                            <button className="btn btn-secondary btn-lg px-4" onClick={this.cancel.bind(this)}>
+                                                <i className="fas fa-times"></i> Cancel
+                                            </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

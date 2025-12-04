@@ -4,7 +4,7 @@ import authHeader from './auth-header';
 // Production URL (AWS Elastic Beanstalk)
 //const API_URL = 'http://ccelectricalservices.eu-west-1.elasticbeanstalk.com/api/test/';
 // Local Development URL
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:8082/api/test/';
 
 
 class UserService {
